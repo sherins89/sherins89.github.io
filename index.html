@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sherin Sabu | Full-Stack Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0b0e1a;
+        --surface: #111425;
+        --card: #161b30;
+        --accent: #4f8ef7;
+        --accent2: #7cffc4;
+        --text: #e8eaf6;
+        --muted: #8892b0;
+        --border: rgba(79, 142, 247, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        overflow-x: hidden;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 5%;
+        background: rgba(11, 14, 26, 0.85);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* .nav-logo {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1.2rem;
+        color: var(--accent);
+        letter-spacing: -0.02em;
+      } */
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--accent2);
+      }
+
+      /* HERO */
+      #home {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 0 5%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            rgba(79, 142, 247, 0.04) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        pointer-events: none;
+      }
+
+      .hero-glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(79, 142, 247, 0.12) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent2);
+        margin-bottom: 1.5rem;
+        padding: 0.4rem 1rem;
+        border: 1px solid rgba(124, 255, 196, 0.25);
+        border-radius: 100px;
+      }
+
+      .hero-tag::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--accent2);
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(0.8);
+        }
+      }
+
+      .hero-name {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-name span {
+        color: var(--accent);
+      }
+
+      .hero-title {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        font-weight: 600;
+        color: var(--muted);
+        margin-bottom: 1.8rem;
+      }
+
+      .hero-desc {
+        font-size: 0.88rem;
+        line-height: 1.9;
+        color: var(--muted);
+        max-width: 580px;
+        margin-bottom: 2.5rem;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        padding: 0.85rem 2rem;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        border-radius: 6px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(79, 142, 247, 0.4);
+      }
+
+      .btn-ghost {
+        display: inline-block;
+        padding: 0.85rem 2rem;
+        border: 1px solid var(--border);
+        color: var(--text);
+        text-decoration: none;
+        font-family: "Syne", sans-serif;
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: 0.05em;
+        border-radius: 6px;
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .hero-scroll {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 5%;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        animation: fadeInUp 1s 1.2s both;
+      }
+
+      .scroll-line {
+        width: 40px;
+        height: 1px;
+        background: var(--muted);
+        animation: expand 1.5s ease-in-out infinite;
+      }
+
+      @keyframes expand {
+        0%,
+        100% {
+          width: 20px;
+          opacity: 0.4;
+        }
+        50% {
+          width: 50px;
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* STATS BAR */
+      .stats-bar {
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 2rem 5%;
+        display: flex;
+        gap: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .stat-number {
+        font-family: "Syne", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      .stat-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 6rem 5%;
+      }
+
+      .section-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent2);
+        margin-bottom: 0.8rem;
+      }
+
+      .section-title {
+        font-family: "Syne", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+
+      .section-desc {
+        font-size: 0.88rem;
+        line-height: 1.9;
+        color: var(--muted);
+        max-width: 580px;
+        margin-bottom: 3rem;
+      }
+
+      /* SKILLS */
+      #skills {
+        background: var(--surface);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.2rem;
+        margin-top: 3rem;
+      }
+
+      .skill-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.5rem;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+
+      .skill-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+      }
+
+      .skill-card-icon {
+        font-size: 1.6rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .skill-card-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text);
+        margin-bottom: 0.4rem;
+      }
+
+      .skill-card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 0.75rem;
+      }
+
+      .tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.06em;
+        padding: 0.2rem 0.6rem;
+        background: rgba(79, 142, 247, 0.1);
+        color: var(--accent);
+        border-radius: 4px;
+        border: 1px solid rgba(79, 142, 247, 0.2);
+      }
+
+      /* PORTFOLIO */
+      #portfolio {
+        background: var(--bg);
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.25s, transform 0.25s;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+
+      .project-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+      }
+      .project-card:hover::before {
+        opacity: 1;
+      }
+
+      .project-number {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      .project-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--text);
+        margin-bottom: 0.75rem;
+      }
+
+      .project-desc {
+        font-size: 0.82rem;
+        line-height: 1.8;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+      }
+
+      .project-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .stack-tag {
+        font-size: 0.67rem;
+        letter-spacing: 0.06em;
+        padding: 0.22rem 0.65rem;
+        background: rgba(124, 255, 196, 0.08);
+        color: var(--accent2);
+        border-radius: 4px;
+        border: 1px solid rgba(124, 255, 196, 0.18);
+      }
+
+      .github-cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 3rem;
+        padding: 1.5rem;
+        border: 1px dashed rgba(79, 142, 247, 0.3);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 0.85rem;
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .github-cta:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .github-icon {
+        width: 24px;
+        height: 24px;
+        fill: currentColor;
+      }
+
+      /* CONTACT */
+      #contact {
+        background: var(--surface);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: start;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.2s;
+      }
+      .contact-item:hover {
+        border-color: var(--accent);
+      }
+
+      .contact-item-icon {
+        font-size: 1.3rem;
+        margin-top: 2px;
+      }
+
+      .contact-item-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.3rem;
+      }
+
+      .contact-item-value {
+        font-family: "Syne", sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text);
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .form-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .form-input,
+      .form-textarea {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 0.85rem 1rem;
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        font-size: 0.85rem;
+        transition: border-color 0.2s;
+        outline: none;
+        width: 100%;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus {
+        border-color: var(--accent);
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 130px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--bg);
+        border-top: 1px solid var(--border);
+        padding: 2rem 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.75rem;
+        color: var(--muted);
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .footer-logo {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1rem;
+        color: var(--accent);
+      }
+
+      /* ANIMATE IN */
+      .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .nav-links {
+          gap: 1.5rem;
+        }
+        .stats-bar {
+          gap: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <!-- <div class="nav-logo">Sherin/</div> -->
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-tag">Available for hire · New York, USA</div>
+        <h1 class="hero-name">Sherin<br /><span>Sabu</span></h1>
+        <p class="hero-title">Junior Full-Stack Developer</p>
+        <p class="hero-desc">
+          Building responsive web applications, RESTful APIs, and relational
+          databases. MBA-qualified with 12+ years of operational leadership —
+          now engineering scalable, user-focused technology solutions.
+        </p>
+        <div class="hero-ctas">
+          <a
+            href="https://github.com/sherins89"
+            target="_blank"
+            class="btn-primary"
+            >View GitHub</a
+          >
+          <a href="#contact" class="btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        Scroll to explore
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-number">12+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">8+</div>
+        <div class="stat-label">Technologies</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">MBA</div>
+        <div class="stat-label">in Business</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Industries Worked</div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <p class="section-label">What I work with</p>
+      <h2 class="section-title">Technical Skills</h2>
+      <p class="section-desc">
+        Recently completed an intensive full-stack bootcamp covering the
+        complete web development stack — from frontend UI to backend APIs and
+        database management.
+      </p>
+      <div class="skills-grid fade-up">
+        <div class="skill-card">
+          <div class="skill-card-icon">🎨</div>
+          <div class="skill-card-name">Frontend</div>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7">
+            Building responsive, accessible interfaces with clean semantic
+            markup.
+          </p>
+          <div class="skill-card-tags">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span
+            ><span class="tag">JavaScript</span
+            ><span class="tag">React.js</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">⚙️</div>
+          <div class="skill-card-name">Backend</div>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7">
+            Server-side logic, RESTful APIs, and robust application
+            architecture.
+          </p>
+          <div class="skill-card-tags">
+            <span class="tag">Node.js</span><span class="tag">Express.js</span
+            ><span class="tag">REST APIs</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">🗄️</div>
+          <div class="skill-card-name">Database</div>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7">
+            Designing efficient schemas and writing optimised queries for
+            relational databases.
+          </p>
+          <div class="skill-card-tags">
+            <span class="tag">SQL</span><span class="tag">PostgreSQL</span
+            ><span class="tag">DBMS</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">🔧</div>
+          <div class="skill-card-name">DevOps & Tools</div>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7">
+            Version control, collaborative workflows, and deployment pipelines.
+          </p>
+          <div class="skill-card-tags">
+            <span class="tag">Git</span><span class="tag">GitHub</span
+            ><span class="tag">CI/CD</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">📊</div>
+          <div class="skill-card-name">Business & Ops</div>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7">
+            12+ years solving complex operational problems — translating to
+            engineering thinking.
+          </p>
+          <div class="skill-card-tags">
+            <span class="tag">MBA</span><span class="tag">Leadership</span
+            ><span class="tag">Process Opt.</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">🔗</div>
+          <div class="skill-card-name">Integration</div>
+          <p style="font-size: 0.78rem; color: var(--muted); line-height: 1.7">
+            Connecting systems through APIs and building full end-to-end data
+            flows.
+          </p>
+          <div class="skill-card-tags">
+            <span class="tag">REST API</span><span class="tag">Full-Stack</span
+            ><span class="tag">CRUD</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <p class="section-label">My Work</p>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-desc">
+        A selection of projects built during my bootcamp and beyond. All source
+        code is available on GitHub.
+      </p>
+      <div class="portfolio-grid fade-up">
+        <a
+          href="https://github.com/sherins89"
+          target="_blank"
+          class="project-card"
+        >
+          <div class="project-number">01 / Project</div>
+          <div class="project-title">Full-Stack Web App</div>
+          <p class="project-desc">
+            A complete full-stack application with user authentication, RESTful
+            API endpoints, and a relational PostgreSQL database. Built with
+            React on the frontend and Node/Express on the backend.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">Node.js</span>
+            <span class="stack-tag">Express</span>
+            <span class="stack-tag">PostgreSQL</span>
+          </div>
+        </a>
+        <a
+          href="https://github.com/sherins89"
+          target="_blank"
+          class="project-card"
+        >
+          <div class="project-number">02 / Project</div>
+          <div class="project-title">RESTful API Server</div>
+          <p class="project-desc">
+            A clean, well-documented REST API with full CRUD operations,
+            middleware authentication, and structured error handling. Designed
+            with scalability and separation of concerns in mind.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">Node.js</span>
+            <span class="stack-tag">Express.js</span>
+            <span class="stack-tag">SQL</span>
+            <span class="stack-tag">REST</span>
+          </div>
+        </a>
+        <a
+          href="https://github.com/sherins89"
+          target="_blank"
+          class="project-card"
+        >
+          <div class="project-number">03 / Project</div>
+          <div class="project-title">Responsive UI — React</div>
+          <p class="project-desc">
+            A responsive, component-based frontend application built in React
+            with state management, API integration, and a mobile-first design
+            approach.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">React.js</span>
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">CSS3</span>
+            <span class="stack-tag">API</span>
+          </div>
+        </a>
+      </div>
+      <a
+        href="https://github.com/sherins89"
+        target="_blank"
+        class="github-cta fade-up"
+      >
+        <svg
+          class="github-icon"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+          />
+        </svg>
+        View all projects on GitHub → github.com/sherins89
+      </a>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <p class="section-label">Let's connect</p>
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-desc">
+        I'm actively looking for junior developer opportunities in the Tristate
+        or remote. Feel free to reach out — I'd love to connect!
+      </p>
+      <div class="contact-grid">
+        <div class="contact-info fade-up">
+          <a href="mailto:sherin.daniel89@yahoo.com" class="contact-item">
+            <div class="contact-item-icon">✉️</div>
+            <div>
+              <div class="contact-item-label">Email</div>
+              <div class="contact-item-value">sherin.daniel89@yahoo.com</div>
+            </div>
+          </a>
+          <a
+            href="https://github.com/sherins89"
+            target="_blank"
+            class="contact-item"
+          >
+            <div class="contact-item-icon">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="#4F8EF7"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                />
+              </svg>
+            </div>
+            <div>
+              <div class="contact-item-label">GitHub</div>
+              <div class="contact-item-value">github.com/sherins89</div>
+            </div>
+          </a>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div class="contact-item-label">Location</div>
+              <div class="contact-item-value">New York, USA</div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form fade-up" onsubmit="return false;">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-input"
+              placeholder="your@email.com"
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea
+              class="form-textarea"
+              placeholder="Tell me about the opportunity..."
+            ></textarea>
+          </div>
+          <a
+            href="mailto:sherin.daniel89@yahoo.com"
+            class="btn-primary"
+            style="text-align: center"
+            >Send Message →</a
+          >
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <!-- <div class="footer-logo">SS/</div> -->
+      <div>
+        © 2025 Sherin Sabu · Junior Full-Stack Developer · New York, USA
+      </div>
+      <a
+        href="https://github.com/sherins89"
+        target="_blank"
+        style="color: var(--accent); text-decoration: none"
+        >github.com/sherins89</a
+      >
+    </footer>
+
+    <script>
+      // Intersection Observer for fade-up animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              // Stagger children if grid
+              const children = e.target.children;
+              Array.from(children).forEach((child, i) => {
+                child.style.transitionDelay = `${i * 0.08}s`;
+                child.style.opacity = "0";
+                child.style.transform = "translateY(20px)";
+                child.style.transition =
+                  "opacity 0.5s ease, transform 0.5s ease";
+                setTimeout(() => {
+                  child.style.opacity = "1";
+                  child.style.transform = "translateY(0)";
+                }, i * 80);
+              });
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document
+        .querySelectorAll(".fade-up")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>
